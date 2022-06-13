@@ -1,31 +1,27 @@
 import cligen
-import "nimland.nim"
+import common/constants
 
-import "basename/basename.nim"
-import "cat/cat.nim"
-import "clear/clear.nim"
-import "cp/cp.nim"
-import "dirname/dirname.nim"
-import "echo/echo.nim"
-import "false/false.nim"
-import "httpd/httpd.nim"
-import "mkdir/mkdir.nim"
-import "more/more.nim"
-import "mv/mv.nim"
-import "nproc/nproc.nim"
-import "printenv/printenv.nim"
-import "pwd/pwd.nim"
-import "rm/rm.nim"
-import "touch/touch.nim"
-import "true/true.nim"
-import "uname/uname.nim"
-import "uptime/uptime.nim"
-import "wget/wget.nim"
-import "yes/yes.nim"
-
-clCfg.helpSyntax = ""
-clCfg.hTabCols = @[clOptKeys, clDescrip]
-clCfg.version = programVersion
+import progs/basename/basename
+import progs/cat/cat
+import progs/clear/clear
+import progs/cp/cp
+import progs/dirname/dirname
+import progs/echo/echo
+import progs/false/false as false_module
+import progs/httpd/httpd
+import progs/mkdir/mkdir
+import progs/more/more
+import progs/mv/mv
+import progs/nproc/nproc
+import progs/printenv/printenv
+import progs/pwd/pwd
+import progs/rm/rm
+import progs/touch/touch
+import progs/true/true as true_module
+import progs/uname/uname
+import progs/uptime/uptime
+import progs/wget/wget
+import progs/yes/yes
 
 when isMainModule:
     dispatchMulti([runBasename, cmdName = "basename", help = {"help": "Display this help page.", "version": "Show version info.", "suffix": "Remove suffix."}, 
@@ -46,7 +42,7 @@ when isMainModule:
                     [runEcho, cmdName = "echo", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
                     
-                    [runFalse],
+                    [runFalse, cmdName = "false"],
 
                     [runHttpd, cmdName = "httpd", help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, 
                     short = {"version": 'v', "port": 'p'}],
@@ -75,16 +71,16 @@ when isMainModule:
                     [runTouch, cmdName = "touch", help = {"help": "Display this help page.", "version": "Show version info.", "modification": "Change only the modification time."}, 
                     short = {"version": 'v', "modification": 'm'}],
                     
-                    [runTrue],
-                    
+                    [runTrue, cmdName = "true"],
+
                     [runUname, cmdName = "uname", help = {"help": "Display this help page.", "version": "Show version info.", "all": "Print all available information.", "nodename": "Print the network node hostname.", "kernelname": "Print the kernel name.", "kernelversion": "Print the kernel version.", "machine": "Print the machine hardware name."}, 
                     short = {"all": 'a', "nodename": 'n', "kernelversion": 'v', "machine": 'm', "kernelname": 's'}],
                     
                     [runUptime, cmdName = "uptime", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
                     
-                    [wget, cmdName = "wget", help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, 
-                    short = {"version": 'v'}],
+                    [runWget, cmdName = "wget", help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, 
+                    short = {"version": 'v', "output": 'o'}],
                     
                     [runYes, cmdName = "yes", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}])
