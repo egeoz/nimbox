@@ -65,6 +65,8 @@ proc runWget*(urls: seq[string], output: string = "") =
         quit(1)
 
     for p in urls:
+        var p = p
+        if not p.startsWith("http"): p = "http://" & p
         waitFor download(p, output)
 
 when isMainModule:
