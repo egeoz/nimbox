@@ -9,6 +9,7 @@ import progs/dirname/dirname
 import progs/echo/echo
 import progs/false/false as false_module
 import progs/httpd/httpd
+import progs/ln/ln
 import progs/mkdir/mkdir
 import progs/more/more
 import progs/mv/mv
@@ -47,6 +48,9 @@ when isMainModule:
                     [runHttpd, cmdName = "httpd", help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, 
                     short = {"version": 'v', "port": 'p'}],
                     
+                    [runLn, cmdName = "ln", help = {"help": "Display this help page.", "version": "Show version info.", "target": "Specify the target directory.", "symbolic": "Create a symbolic link.", "interactive": "Prompt before overwriting.", "verbose": "Explain what is being done."}, 
+                    short = {"verbose": 'v', "target": 't', "symbolic": 's', "interactive": 'i'}],
+
                     [runMkdir, cmdName = "mkdir", help = {"help": "Display this help page.", "version": "Show version info.", "parents": "Make parent directories as needed.", "verbose": "Explain what is being done."},
                     short = {"verbose": 'v', "parents": 'p'}],
                     

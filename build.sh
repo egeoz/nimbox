@@ -23,6 +23,7 @@ then
     $NIMCC $FLAGS progs/echo/echo.nim >> build_all.log 2>&1
     $NIMCC $FLAGS progs/false/false.nim >> build_all.log 2>&1
     $NIMCC $FLAGS progs/httpd/httpd.nim >> build_all.log 2>&1
+    $NIMCC $FLAGS progs/ln/ln.nim >> build_all.log 2>&1
     $NIMCC $FLAGS progs/mkdir/mkdir.nim >> build_all.log 2>&1
     $NIMCC $FLAGS progs/more/more.nim >> build_all.log 2>&1
     $NIMCC $FLAGS progs/mv/mv.nim >> build_all.log 2>&1
