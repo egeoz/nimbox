@@ -38,22 +38,15 @@ proc download(p, o: string) {.async.} =
         elif fileExists(output):
             output &= ".1"
         
-        writeFile(output, "")
-
-    except IOError:
-        echo "Failed to create file: Permission denied"
-        quit(1)
-    except:
-        echo "Unknown error."
-        quit(1)
-
-    try:
         client = newAsyncHttpClient()
         client.onProgressChanged = onProgressChanged
         echo &"Downloading \"{p}\" to \"{output}\""
         await client.downloadFile(p, output)
     except OSError:
         echo &"Unable to resolve host address \"{p}\""
+        quit(1)
+    except IOError:
+        echo "Failed to create file: Permission denied"
         quit(1)
     except:
         echo "Unknown error."
