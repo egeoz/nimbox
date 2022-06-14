@@ -33,8 +33,7 @@ proc download(p, o: string) {.async.} =
         if o != "": output = o else: output = tail
 
         if dirExists(output): 
-            echo &"Cannot overwrite non-file \"{output}\" with file." 
-            quit(1)
+            if output.endsWith("/"): output &= tail else: output &= "/" & tail
         elif fileExists(output):
             output &= ".1"
         
