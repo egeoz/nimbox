@@ -1,0 +1,135 @@
+ocsp/libcrypto_la-ocsp_vfy.lo: ocsp/ocsp_vfy.c ../include/openssl/ocsp.h \
+ ../include/openssl/ossl_typ.h ../include/openssl/opensslconf.h \
+ ../include/openssl/opensslfeatures.h ../include/openssl/x509.h \
+ ../include/openssl/buffer.h /usr/include/x86_64-linux-musl/stddef.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ ../include/compat/sys/types.h /usr/include/x86_64-linux-musl/sys/types.h \
+ /usr/include/x86_64-linux-musl/features.h \
+ /usr/include/x86_64-linux-musl/endian.h \
+ /usr/include/x86_64-linux-musl/stdint.h \
+ /usr/include/x86_64-linux-musl/bits/stdint.h \
+ ../include/compat/sys/select.h \
+ /usr/include/x86_64-linux-musl/sys/select.h ../include/openssl/evp.h \
+ ../include/openssl/bio.h ../include/compat/stdio.h \
+ /usr/include/x86_64-linux-musl/stdio.h \
+ /usr/include/x86_64-linux-musl/stdarg.h ../include/openssl/crypto.h \
+ ../include/compat/stdlib.h /usr/include/x86_64-linux-musl/stdlib.h \
+ /usr/include/x86_64-linux-musl/alloca.h ../include/openssl/stack.h \
+ ../include/openssl/safestack.h ../include/openssl/opensslv.h \
+ ../include/openssl/objects.h ../include/openssl/obj_mac.h \
+ ../include/openssl/asn1.h ../include/compat/time.h \
+ /usr/include/x86_64-linux-musl/time.h ../include/openssl/bn.h \
+ ../include/openssl/ec.h ../include/openssl/ecdsa.h \
+ ../include/openssl/ecdh.h ../include/openssl/rsa.h \
+ ../include/openssl/dsa.h ../include/openssl/dh.h \
+ ../include/openssl/sha.h ../include/openssl/x509_vfy.h \
+ ../include/openssl/lhash.h ../include/openssl/pkcs7.h \
+ ../include/openssl/x509v3.h ../include/openssl/conf.h \
+ ../include/openssl/err.h /usr/include/x86_64-linux-musl/errno.h \
+ /usr/include/x86_64-linux-musl/bits/errno.h ../include/compat/string.h \
+ /usr/include/x86_64-linux-musl/string.h \
+ /usr/include/x86_64-linux-musl/strings.h
+
+../include/openssl/ocsp.h:
+
+../include/openssl/ossl_typ.h:
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+../include/openssl/x509.h:
+
+../include/openssl/buffer.h:
+
+/usr/include/x86_64-linux-musl/stddef.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+../include/compat/sys/types.h:
+
+/usr/include/x86_64-linux-musl/sys/types.h:
+
+/usr/include/x86_64-linux-musl/features.h:
+
+/usr/include/x86_64-linux-musl/endian.h:
+
+/usr/include/x86_64-linux-musl/stdint.h:
+
+/usr/include/x86_64-linux-musl/bits/stdint.h:
+
+../include/compat/sys/select.h:
+
+/usr/include/x86_64-linux-musl/sys/select.h:
+
+../include/openssl/evp.h:
+
+../include/openssl/bio.h:
+
+../include/compat/stdio.h:
+
+/usr/include/x86_64-linux-musl/stdio.h:
+
+/usr/include/x86_64-linux-musl/stdarg.h:
+
+../include/openssl/crypto.h:
+
+../include/compat/stdlib.h:
+
+/usr/include/x86_64-linux-musl/stdlib.h:
+
+/usr/include/x86_64-linux-musl/alloca.h:
+
+../include/openssl/stack.h:
+
+../include/openssl/safestack.h:
+
+../include/openssl/opensslv.h:
+
+../include/openssl/objects.h:
+
+../include/openssl/obj_mac.h:
+
+../include/openssl/asn1.h:
+
+../include/compat/time.h:
+
+/usr/include/x86_64-linux-musl/time.h:
+
+../include/openssl/bn.h:
+
+../include/openssl/ec.h:
+
+../include/openssl/ecdsa.h:
+
+../include/openssl/ecdh.h:
+
+../include/openssl/rsa.h:
+
+../include/openssl/dsa.h:
+
+../include/openssl/dh.h:
+
+../include/openssl/sha.h:
+
+../include/openssl/x509_vfy.h:
+
+../include/openssl/lhash.h:
+
+../include/openssl/pkcs7.h:
+
+../include/openssl/x509v3.h:
+
+../include/openssl/conf.h:
+
+../include/openssl/err.h:
+
+/usr/include/x86_64-linux-musl/errno.h:
+
+/usr/include/x86_64-linux-musl/bits/errno.h:
+
+../include/compat/string.h:
+
+/usr/include/x86_64-linux-musl/string.h:
+
+/usr/include/x86_64-linux-musl/strings.h:

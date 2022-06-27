@@ -8,8 +8,10 @@ import progs/cp/cp
 import progs/dirname/dirname
 import progs/echo/echo
 import progs/false/false as false_module
+import progs/hostname/hostname
 import progs/httpd/httpd
 import progs/ln/ln
+import progs/ls/ls
 import progs/mkdir/mkdir
 import progs/more/more
 import progs/mv/mv
@@ -17,11 +19,16 @@ import progs/nproc/nproc
 import progs/printenv/printenv
 import progs/pwd/pwd
 import progs/rm/rm
+import progs/sh/sh
+import progs/sleep/sleep as sleep_module
 import progs/touch/touch
 import progs/true/true as true_module
+import progs/tty/tty
 import progs/uname/uname
 import progs/uptime/uptime
 import progs/wget/wget
+import progs/which/which
+import progs/whoami/whoami
 import progs/yes/yes
 
 when isMainModule:
@@ -45,6 +52,9 @@ when isMainModule:
                     
                     [runFalse, cmdName = "false"],
 
+                    [runHostname, cmdName = "hostname", help = {"help": "Display this help page.", "version": "Show version info."}, 
+                    short = {"version": 'v'}],
+
                     [runHttpd, cmdName = "httpd", help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, 
                     short = {"version": 'v', "port": 'p'}],
                     
@@ -54,6 +64,9 @@ when isMainModule:
                     [runMkdir, cmdName = "mkdir", help = {"help": "Display this help page.", "version": "Show version info.", "parents": "Make parent directories as needed.", "verbose": "Explain what is being done."},
                     short = {"verbose": 'v', "parents": 'p'}],
                     
+                    [runLs, cmdName = "ls", help = {"help": "Display this help page.", "version": "Show version info.", "long": "Show each entry in a new line.", "all": "Show hidden files as well.", "p": "Append \"/\" to directories.", "color": "Colorize the output"}, 
+                    short = {"version": 'v', "long": 'l', "all": 'a', "color": 'c'}],
+
                     [runMore, cmdName = "more", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
                     
@@ -71,11 +84,20 @@ when isMainModule:
 
                     [runRm, cmdName = "rm", help = {"help": "Display this help page.", "version": "Show version info.", "recursive": "Remove files and directories recursively.", "verbose": "Explain what is being done."}, 
                     short = {"verbose": 'v', "recursive": 'r'}],
+
+                    [runSh, cmdName = "sh", help = {"help": "Display this help page.", "version": "Show version info."}, 
+                    short = {"version": 'v'}],
                     
+                    [runSleep, cmdName = "sleep", help = {"help": "Display this help page.", "version": "Show version info."}, 
+                    short = {"version": 'v'}],
+
                     [runTouch, cmdName = "touch", help = {"help": "Display this help page.", "version": "Show version info.", "modification": "Change only the modification time."}, 
                     short = {"version": 'v', "modification": 'm'}],
                     
                     [runTrue, cmdName = "true"],
+
+                    [runTty, cmdName = "tty", help = {"help": "Display this help page.", "version": "Show version info."}, 
+                    short = {"version": 'v'}],
 
                     [runUname, cmdName = "uname", help = {"help": "Display this help page.", "version": "Show version info.", "all": "Print all available information.", "nodename": "Print the network node hostname.", "kernelname": "Print the kernel name.", "kernelversion": "Print the kernel version.", "machine": "Print the machine hardware name."}, 
                     short = {"all": 'a', "nodename": 'n', "kernelversion": 'v', "machine": 'm', "kernelname": 's'}],
@@ -85,7 +107,13 @@ when isMainModule:
                     
                     [runWget, cmdName = "wget", help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, 
                     short = {"version": 'v', "output": 'o'}],
-                    
+
+                    [runWhich, cmdName = "which", help = {"help": "Display this help page.", "version": "Show version info."}, 
+                    short = {"version": 'v'}],
+
+                    [runWhoami, cmdName = "whoami", help = {"help": "Display this help page.", "version": "Show version info."}, 
+                    short = {"version": 'v'}],
+
                     [runYes, cmdName = "yes", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}])
 

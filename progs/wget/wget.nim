@@ -36,7 +36,17 @@ proc download(p, o: string) {.async.} =
             if output.endsWith("/"): output &= tail else: output &= "/" & tail
         elif fileExists(output):
             output &= ".1"
-        
+
+        writeFile(output, "")
+        removeFile(output)
+    except IOError:
+        echo "Failed to create file: Permission denied"
+        quit(1)
+    except:
+        echo "Unknown error."
+        quit(1)
+    
+    try:       
         client = newAsyncHttpClient()
         client.onProgressChanged = onProgressChanged
         echo &"Downloading \"{p}\" to \"{output}\""

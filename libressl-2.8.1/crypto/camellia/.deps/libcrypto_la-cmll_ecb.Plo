@@ -1,0 +1,17 @@
+camellia/libcrypto_la-cmll_ecb.lo: camellia/cmll_ecb.c \
+ ../include/openssl/camellia.h ../include/openssl/opensslconf.h \
+ ../include/openssl/opensslfeatures.h \
+ /usr/include/x86_64-linux-musl/stddef.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h camellia/cmll_locl.h
+
+../include/openssl/camellia.h:
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+/usr/include/x86_64-linux-musl/stddef.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+camellia/cmll_locl.h:

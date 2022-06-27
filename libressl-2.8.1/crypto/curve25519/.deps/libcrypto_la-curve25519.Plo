@@ -1,0 +1,53 @@
+curve25519/libcrypto_la-curve25519.lo: curve25519/curve25519.c \
+ ../include/compat/stdlib.h /usr/include/x86_64-linux-musl/stdlib.h \
+ /usr/include/x86_64-linux-musl/features.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ /usr/include/x86_64-linux-musl/alloca.h ../include/compat/sys/types.h \
+ /usr/include/x86_64-linux-musl/sys/types.h \
+ /usr/include/x86_64-linux-musl/endian.h \
+ /usr/include/x86_64-linux-musl/stdint.h \
+ /usr/include/x86_64-linux-musl/bits/stdint.h \
+ ../include/compat/sys/select.h \
+ /usr/include/x86_64-linux-musl/sys/select.h ../include/compat/string.h \
+ /usr/include/x86_64-linux-musl/string.h \
+ /usr/include/x86_64-linux-musl/strings.h ../include/openssl/curve25519.h \
+ ../include/openssl/opensslconf.h ../include/openssl/opensslfeatures.h \
+ curve25519/curve25519_internal.h
+
+../include/compat/stdlib.h:
+
+/usr/include/x86_64-linux-musl/stdlib.h:
+
+/usr/include/x86_64-linux-musl/features.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+/usr/include/x86_64-linux-musl/alloca.h:
+
+../include/compat/sys/types.h:
+
+/usr/include/x86_64-linux-musl/sys/types.h:
+
+/usr/include/x86_64-linux-musl/endian.h:
+
+/usr/include/x86_64-linux-musl/stdint.h:
+
+/usr/include/x86_64-linux-musl/bits/stdint.h:
+
+../include/compat/sys/select.h:
+
+/usr/include/x86_64-linux-musl/sys/select.h:
+
+../include/compat/string.h:
+
+/usr/include/x86_64-linux-musl/string.h:
+
+/usr/include/x86_64-linux-musl/strings.h:
+
+../include/openssl/curve25519.h:
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+curve25519/curve25519_internal.h:

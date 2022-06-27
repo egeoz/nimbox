@@ -1,0 +1,17 @@
+aes/libcrypto_la-aes_ofb.lo: aes/aes_ofb.c ../include/openssl/aes.h \
+ ../include/openssl/opensslconf.h ../include/openssl/opensslfeatures.h \
+ /usr/include/x86_64-linux-musl/stddef.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ ../include/openssl/modes.h
+
+../include/openssl/aes.h:
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+/usr/include/x86_64-linux-musl/stddef.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+../include/openssl/modes.h:

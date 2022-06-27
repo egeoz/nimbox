@@ -1,0 +1,77 @@
+bio/libcrypto_la-b_posix.lo: bio/b_posix.c ../include/compat/fcntl.h \
+ /usr/include/x86_64-linux-musl/fcntl.h \
+ /usr/include/x86_64-linux-musl/features.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ /usr/include/x86_64-linux-musl/bits/fcntl.h ../include/compat/unistd.h \
+ /usr/include/x86_64-linux-musl/unistd.h \
+ /usr/include/x86_64-linux-musl/bits/posix.h ../include/openssl/bio.h \
+ ../include/openssl/opensslconf.h ../include/openssl/opensslfeatures.h \
+ ../include/compat/stdio.h /usr/include/x86_64-linux-musl/stdio.h \
+ /usr/include/x86_64-linux-musl/stdarg.h ../include/openssl/crypto.h \
+ /usr/include/x86_64-linux-musl/stdint.h \
+ /usr/include/x86_64-linux-musl/bits/stdint.h ../include/compat/stdlib.h \
+ /usr/include/x86_64-linux-musl/stdlib.h \
+ /usr/include/x86_64-linux-musl/alloca.h ../include/compat/sys/types.h \
+ /usr/include/x86_64-linux-musl/sys/types.h \
+ /usr/include/x86_64-linux-musl/endian.h ../include/compat/sys/select.h \
+ /usr/include/x86_64-linux-musl/sys/select.h ../include/openssl/stack.h \
+ ../include/openssl/safestack.h ../include/openssl/opensslv.h \
+ ../include/openssl/ossl_typ.h
+
+../include/compat/fcntl.h:
+
+/usr/include/x86_64-linux-musl/fcntl.h:
+
+/usr/include/x86_64-linux-musl/features.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+/usr/include/x86_64-linux-musl/bits/fcntl.h:
+
+../include/compat/unistd.h:
+
+/usr/include/x86_64-linux-musl/unistd.h:
+
+/usr/include/x86_64-linux-musl/bits/posix.h:
+
+../include/openssl/bio.h:
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+../include/compat/stdio.h:
+
+/usr/include/x86_64-linux-musl/stdio.h:
+
+/usr/include/x86_64-linux-musl/stdarg.h:
+
+../include/openssl/crypto.h:
+
+/usr/include/x86_64-linux-musl/stdint.h:
+
+/usr/include/x86_64-linux-musl/bits/stdint.h:
+
+../include/compat/stdlib.h:
+
+/usr/include/x86_64-linux-musl/stdlib.h:
+
+/usr/include/x86_64-linux-musl/alloca.h:
+
+../include/compat/sys/types.h:
+
+/usr/include/x86_64-linux-musl/sys/types.h:
+
+/usr/include/x86_64-linux-musl/endian.h:
+
+../include/compat/sys/select.h:
+
+/usr/include/x86_64-linux-musl/sys/select.h:
+
+../include/openssl/stack.h:
+
+../include/openssl/safestack.h:
+
+../include/openssl/opensslv.h:
+
+../include/openssl/ossl_typ.h:

@@ -1,0 +1,116 @@
+compat/arc4random.lo: compat/arc4random.c ../include/compat/fcntl.h \
+ /usr/include/x86_64-linux-musl/fcntl.h \
+ /usr/include/x86_64-linux-musl/features.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ /usr/include/x86_64-linux-musl/bits/fcntl.h ../include/compat/limits.h \
+ /usr/include/x86_64-linux-musl/limits.h \
+ /usr/include/x86_64-linux-musl/bits/limits.h \
+ /usr/include/x86_64-linux-musl/signal.h \
+ /usr/include/x86_64-linux-musl/bits/signal.h \
+ /usr/include/x86_64-linux-musl/stdint.h \
+ /usr/include/x86_64-linux-musl/bits/stdint.h ../include/compat/stdlib.h \
+ /usr/include/x86_64-linux-musl/stdlib.h \
+ /usr/include/x86_64-linux-musl/alloca.h ../include/compat/sys/types.h \
+ /usr/include/x86_64-linux-musl/sys/types.h \
+ /usr/include/x86_64-linux-musl/endian.h ../include/compat/sys/select.h \
+ /usr/include/x86_64-linux-musl/sys/select.h ../include/compat/string.h \
+ /usr/include/x86_64-linux-musl/string.h \
+ /usr/include/x86_64-linux-musl/strings.h ../include/compat/unistd.h \
+ /usr/include/x86_64-linux-musl/unistd.h \
+ /usr/include/x86_64-linux-musl/bits/posix.h ../include/compat/sys/time.h \
+ /usr/include/x86_64-linux-musl/sys/time.h compat/chacha_private.h \
+ compat/arc4random.h ../include/compat/sys/param.h \
+ /usr/include/x86_64-linux-musl/sys/param.h \
+ /usr/include/x86_64-linux-musl/sys/resource.h \
+ /usr/include/x86_64-linux-musl/bits/resource.h compat/arc4random_linux.h \
+ ../include/compat/sys/mman.h /usr/include/x86_64-linux-musl/sys/mman.h \
+ /usr/include/x86_64-linux-musl/bits/mman.h ../include/compat/pthread.h \
+ /usr/include/x86_64-linux-musl/pthread.h \
+ /usr/include/x86_64-linux-musl/sched.h ../include/compat/time.h \
+ /usr/include/x86_64-linux-musl/time.h
+
+../include/compat/fcntl.h:
+
+/usr/include/x86_64-linux-musl/fcntl.h:
+
+/usr/include/x86_64-linux-musl/features.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+/usr/include/x86_64-linux-musl/bits/fcntl.h:
+
+../include/compat/limits.h:
+
+/usr/include/x86_64-linux-musl/limits.h:
+
+/usr/include/x86_64-linux-musl/bits/limits.h:
+
+/usr/include/x86_64-linux-musl/signal.h:
+
+/usr/include/x86_64-linux-musl/bits/signal.h:
+
+/usr/include/x86_64-linux-musl/stdint.h:
+
+/usr/include/x86_64-linux-musl/bits/stdint.h:
+
+../include/compat/stdlib.h:
+
+/usr/include/x86_64-linux-musl/stdlib.h:
+
+/usr/include/x86_64-linux-musl/alloca.h:
+
+../include/compat/sys/types.h:
+
+/usr/include/x86_64-linux-musl/sys/types.h:
+
+/usr/include/x86_64-linux-musl/endian.h:
+
+../include/compat/sys/select.h:
+
+/usr/include/x86_64-linux-musl/sys/select.h:
+
+../include/compat/string.h:
+
+/usr/include/x86_64-linux-musl/string.h:
+
+/usr/include/x86_64-linux-musl/strings.h:
+
+../include/compat/unistd.h:
+
+/usr/include/x86_64-linux-musl/unistd.h:
+
+/usr/include/x86_64-linux-musl/bits/posix.h:
+
+../include/compat/sys/time.h:
+
+/usr/include/x86_64-linux-musl/sys/time.h:
+
+compat/chacha_private.h:
+
+compat/arc4random.h:
+
+../include/compat/sys/param.h:
+
+/usr/include/x86_64-linux-musl/sys/param.h:
+
+/usr/include/x86_64-linux-musl/sys/resource.h:
+
+/usr/include/x86_64-linux-musl/bits/resource.h:
+
+compat/arc4random_linux.h:
+
+../include/compat/sys/mman.h:
+
+/usr/include/x86_64-linux-musl/sys/mman.h:
+
+/usr/include/x86_64-linux-musl/bits/mman.h:
+
+../include/compat/pthread.h:
+
+/usr/include/x86_64-linux-musl/pthread.h:
+
+/usr/include/x86_64-linux-musl/sched.h:
+
+../include/compat/time.h:
+
+/usr/include/x86_64-linux-musl/time.h:

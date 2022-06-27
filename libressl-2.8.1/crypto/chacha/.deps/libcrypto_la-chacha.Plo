@@ -1,0 +1,38 @@
+chacha/libcrypto_la-chacha.lo: chacha/chacha.c \
+ /usr/include/x86_64-linux-musl/stdint.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ /usr/include/x86_64-linux-musl/bits/stdint.h ../include/openssl/chacha.h \
+ ../include/openssl/opensslconf.h ../include/openssl/opensslfeatures.h \
+ /usr/include/x86_64-linux-musl/stddef.h chacha/chacha-merged.c \
+ ../include/compat/sys/types.h /usr/include/x86_64-linux-musl/sys/types.h \
+ /usr/include/x86_64-linux-musl/features.h \
+ /usr/include/x86_64-linux-musl/endian.h ../include/compat/sys/select.h \
+ /usr/include/x86_64-linux-musl/sys/select.h
+
+/usr/include/x86_64-linux-musl/stdint.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+/usr/include/x86_64-linux-musl/bits/stdint.h:
+
+../include/openssl/chacha.h:
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+/usr/include/x86_64-linux-musl/stddef.h:
+
+chacha/chacha-merged.c:
+
+../include/compat/sys/types.h:
+
+/usr/include/x86_64-linux-musl/sys/types.h:
+
+/usr/include/x86_64-linux-musl/features.h:
+
+/usr/include/x86_64-linux-musl/endian.h:
+
+../include/compat/sys/select.h:
+
+/usr/include/x86_64-linux-musl/sys/select.h:

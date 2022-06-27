@@ -1,0 +1,67 @@
+des/libcrypto_la-ede_cbcm_enc.lo: des/ede_cbcm_enc.c \
+ ../include/openssl/opensslconf.h ../include/openssl/opensslfeatures.h \
+ des/des_locl.h /usr/include/x86_64-linux-musl/math.h \
+ /usr/include/x86_64-linux-musl/features.h \
+ /usr/include/x86_64-linux-musl/bits/alltypes.h \
+ /usr/include/x86_64-linux-musl/stdint.h \
+ /usr/include/x86_64-linux-musl/bits/stdint.h ../include/compat/stdio.h \
+ /usr/include/x86_64-linux-musl/stdio.h ../include/compat/stdlib.h \
+ /usr/include/x86_64-linux-musl/stdlib.h \
+ /usr/include/x86_64-linux-musl/alloca.h ../include/compat/sys/types.h \
+ /usr/include/x86_64-linux-musl/sys/types.h \
+ /usr/include/x86_64-linux-musl/endian.h ../include/compat/sys/select.h \
+ /usr/include/x86_64-linux-musl/sys/select.h ../include/compat/string.h \
+ /usr/include/x86_64-linux-musl/string.h \
+ /usr/include/x86_64-linux-musl/strings.h ../include/compat/unistd.h \
+ /usr/include/x86_64-linux-musl/unistd.h \
+ /usr/include/x86_64-linux-musl/bits/posix.h ../include/openssl/des.h
+
+../include/openssl/opensslconf.h:
+
+../include/openssl/opensslfeatures.h:
+
+des/des_locl.h:
+
+/usr/include/x86_64-linux-musl/math.h:
+
+/usr/include/x86_64-linux-musl/features.h:
+
+/usr/include/x86_64-linux-musl/bits/alltypes.h:
+
+/usr/include/x86_64-linux-musl/stdint.h:
+
+/usr/include/x86_64-linux-musl/bits/stdint.h:
+
+../include/compat/stdio.h:
+
+/usr/include/x86_64-linux-musl/stdio.h:
+
+../include/compat/stdlib.h:
+
+/usr/include/x86_64-linux-musl/stdlib.h:
+
+/usr/include/x86_64-linux-musl/alloca.h:
+
+../include/compat/sys/types.h:
+
+/usr/include/x86_64-linux-musl/sys/types.h:
+
+/usr/include/x86_64-linux-musl/endian.h:
+
+../include/compat/sys/select.h:
+
+/usr/include/x86_64-linux-musl/sys/select.h:
+
+../include/compat/string.h:
+
+/usr/include/x86_64-linux-musl/string.h:
+
+/usr/include/x86_64-linux-musl/strings.h:
+
+../include/compat/unistd.h:
+
+/usr/include/x86_64-linux-musl/unistd.h:
+
+/usr/include/x86_64-linux-musl/bits/posix.h:
+
+../include/openssl/des.h:
