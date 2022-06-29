@@ -60,7 +60,7 @@ proc download(p, o: string) {.async.} =
 
 proc runWget*(urls: seq[string], output: string = "") =
     if output != "" and urls.len > 1:
-        errorMessage(programName, "wget: Maximum 1 arguments can be given along with -o parameter.\nSee \"output --help\" for more information.", true)
+        errorMessage(programName, "Maximum 1 arguments can be given along with -o parameter.\nSee \"output --help\" for more information.", true)
 
     for p in urls:
         var p = p
