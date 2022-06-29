@@ -1,4 +1,6 @@
-import cligen, std/os, strformat, strutils, ../../common/constants
+import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+
+const programName* = "mv"
 
 proc runMv*(files: seq[string], target: string = "", verbose: bool = false, interactive: bool = false, destination: string = "") =
     var prompt, path, dest: string
@@ -11,7 +13,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                 path = absolutePath(fileName)
                 action = fileExists(path) or dirExists(path)
     
-                if not (action): echo &"Cannot move \"{fileName}\": No such file or directory"
+                if not (action): errorMessage(programName, &"Cannot move \"{fileName}\": No such file or directory")
 
                 if dirExists(dest) and not dest.endsWith("/"): dest = dest & "/"
                 if path.endsWith("/"): path = path[0 ..< path.high]
@@ -22,7 +24,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
 
                 if fileExists(path):
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -37,11 +39,10 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
 
                 elif dirExists(path):
                     if fileExists(dest): 
-                        echo &"Cannot overwrite non-directory \"{dest}\" with directory \"{fileName}\"."
-                        quit(1)
-                    
+                        errorMessage(programName, &"Cannot overwrite non-directory \"{dest}\" with directory \"{fileName}\".", true)
+
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -60,7 +61,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                 action = fileExists(path) or dirExists(path)
                 
                 if path == dest: quit(1)
-                if not (action): echo &"Cannot move \"{fileName}\": No such file or directory"
+                if not (action): errorMessage(programName, &"Cannot move \"{fileName}\": No such file or directory.")
 
                 if dirExists(dest) and not dest.endsWith("/"): dest = dest & "/"
                 if path.endsWith("/"): path = path[0 ..< path.high]
@@ -72,7 +73,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                     if not interactive and dirExists(dest): removeDir(dest)
 
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -86,13 +87,12 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
 
                 elif dirExists(path):
                     if fileExists(dest): 
-                        echo &"Cannot overwrite non-directory \"{dest}\" with directory \"{fileName}\"."
-                        quit(1)
-                    
+                        errorMessage(programName, &"Cannot overwrite non-directory \"{dest}\" with directory \"{fileName}\".")
+
                     if not interactive and fileExists(dest): removeFile(dest)
                     
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -104,10 +104,10 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                         moveDir(path, dest)
                     
         except OSError:
-            echo "Failed to move: Permission denied."
+            errorMessage(programName, "Failed to move: Permission denied.")
         except:
-            echo "Unknown error."
+            errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runMv, cmdName = "mv", help = {"help": "Display this help page.", "version": "Show version info.","interactive": "Prompt before overwriting." , "target": "Move all into the specified directory", "verbose": "Explain what is being done."}, 
+    dispatch(runMv, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.","interactive": "Prompt before overwriting." , "target": "Move all into the specified directory", "verbose": "Explain what is being done."}, 
                  short = {"verbose": 'v', "interactive": 'i', "target": 't'})

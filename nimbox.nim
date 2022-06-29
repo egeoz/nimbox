@@ -6,7 +6,8 @@ import progs/cat/cat
 import progs/clear/clear
 import progs/cp/cp
 import progs/dirname/dirname
-import progs/echo/echo
+import progs/dos2unix/dos2unix
+import progs/echo/echo as echo_module
 import progs/false/false as false_module
 import progs/hostname/hostname
 import progs/httpd/httpd
@@ -18,6 +19,7 @@ import progs/mv/mv
 import progs/nproc/nproc
 import progs/printenv/printenv
 import progs/pwd/pwd
+import progs/readlink/readlink
 import progs/rm/rm
 import progs/sh/sh
 import progs/sleep/sleep as sleep_module
@@ -25,6 +27,7 @@ import progs/touch/touch
 import progs/true/true as true_module
 import progs/tty/tty
 import progs/uname/uname
+import progs/unzip/unzip
 import progs/uptime/uptime
 import progs/wget/wget
 import progs/which/which
@@ -46,6 +49,9 @@ when isMainModule:
                     
                     [runDirname, cmdName = "dirname", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
+
+                    [runDos2Unix, cmdName = "dos2unix", help = {"help": "Display this help page.", "version": "Show version info.", "dos": "Convert Unix line endings to DOS."}, 
+                    short = {"version": 'v', "dos": 'd'}],
                     
                     [runEcho, cmdName = "echo", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
@@ -82,6 +88,9 @@ when isMainModule:
                     [runPwd, cmdName = "pwd", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
 
+                    [runReadlink, cmdName = "readlink", help = {"help": "Display this help page.", "version": "Show version info.", "nonewline": "Print each result on the same line."}, 
+                    short = {"verbose": 'v', "nonewline": 'n'}],
+
                     [runRm, cmdName = "rm", help = {"help": "Display this help page.", "version": "Show version info.", "recursive": "Remove files and directories recursively.", "verbose": "Explain what is being done."}, 
                     short = {"verbose": 'v', "recursive": 'r'}],
 
@@ -102,6 +111,9 @@ when isMainModule:
                     [runUname, cmdName = "uname", help = {"help": "Display this help page.", "version": "Show version info.", "all": "Print all available information.", "nodename": "Print the network node hostname.", "kernelname": "Print the kernel name.", "kernelversion": "Print the kernel version.", "machine": "Print the machine hardware name."}, 
                     short = {"all": 'a', "nodename": 'n', "kernelversion": 'v', "machine": 'm', "kernelname": 's'}],
                     
+                    [runUnzip, cmdName = "unzip", help = {"help": "Display this help page.", "version": "Show version info.", "destination": "Extract into destination.", "list": "List contents without extracting.", "neveroverwrite": "Never overwrite files."}, 
+                    short = {"version": 'v', "destination": 'd', "list": 'l', "neveroverwrite": 'n'}],
+
                     [runUptime, cmdName = "uptime", help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'}],
                     

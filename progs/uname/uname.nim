@@ -1,5 +1,7 @@
 import cligen, posix_utils, ../../common/constants
 
+const programName* = "uname"
+
 proc runUname*(all: bool = false, machine: bool = false, nodename: bool = false, kernelname: bool = false, kernelrelease: bool = false, kernelversion: bool = false) =
     let un = uname()
     var output = ""
@@ -23,5 +25,5 @@ proc runUname*(all: bool = false, machine: bool = false, nodename: bool = false,
     echo output
 
 when isMainModule:
-    dispatch(runUname, cmdName = "uname", help = {"help": "Display this help page.", "version": "Show version info.", "all": "Print all available information.", "nodename": "Print the network node hostname.", "kernelname": "Print the kernel name.", "kernelversion": "Print the kernel version.", "machine": "Print the machine hardware name."}, 
+    dispatch(runUname, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "all": "Print all available information.", "nodename": "Print the network node hostname.", "kernelname": "Print the kernel name.", "kernelversion": "Print the kernel version.", "machine": "Print the machine hardware name."}, 
                     short = {"all": 'a', "nodename": 'n', "kernelversion": 'v', "machine": 'm', "kernelname": 's'})

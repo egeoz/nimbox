@@ -1,4 +1,6 @@
-import cligen, std/[math, times], strformat, strutils, ../../common/constants
+import cligen, std/[math, times], strformat, strutils, ../../common/constants, ../../common/utils
+
+const programName* = "uptime"
 
 proc runUptime*() =
     try:
@@ -17,10 +19,10 @@ proc runUptime*() =
 
         echo &"{currentTime} up {days} days, {hours:0>2}:{minutes:0>2}, {loadavgStr}"
     except IOError:
-        echo "Permission denied."
+        errorMessage(programName, "Permission denied.")
     except:
-        echo "Unknown error"
+        errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runUptime, cmdName = "uptime", help = {"help": "Display this help page.", "version": "Show version info."}, 
+    dispatch(runUptime, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'})

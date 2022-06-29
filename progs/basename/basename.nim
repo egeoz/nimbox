@@ -1,9 +1,10 @@
-import cligen, std/os, strutils, ../../common/constants
+import cligen, std/os, strutils, ../../common/constants, ../../common/utils
+
+const programName* = "basename"
 
 proc runBasename*(paths: seq[string], suffix: string = "") =
     if paths.len == 0:
-        echo "basename: Needs at least 1 argument.\nTry \"basename --help\" for more information."
-        quit(1)
+        errorMessage(programName, "Needs at least 1 argument.\nTry \"basename --help\" for more information.", true)
 
     for p in paths:
         var (_, tail) = splitPath(p)
@@ -14,5 +15,5 @@ proc runBasename*(paths: seq[string], suffix: string = "") =
         echo tail
 
 when isMainModule:
-    dispatch(runBasename, cmdName = "basename", help = {"help": "Display this help page.", "version": "Show version info.", "suffix": "Remove suffix."}, 
+    dispatch(runBasename, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "suffix": "Remove suffix."}, 
             short = {"version": 'v', "suffix": 's'})

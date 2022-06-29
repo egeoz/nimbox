@@ -1,8 +1,10 @@
-import cligen, std/os, strformat, strutils, ../../common/constants
+import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+
+const programName* = "ls"
 
 proc listDir(long, all, p, color: bool, path: string): string =
     let seperator = if long: "\n" else: "\t"
-    result = &"\n{path}:\n"
+    if dirExists(path): result = &"\n{path}:\n"
     for d in walkDir(path):
         var (_, tail) = splitPath(d.path)
         if p and dirExists(d.path): tail &= "/"
@@ -16,14 +18,14 @@ proc runLs*(paths: seq[string], long: bool = false, all: bool = false, p: bool =
         try:    
             echo listDir(long, all, p, color, getCurrentDir())
         except OSError:
-            echo &"ls: \"{getCurrentDir()}\" No such file or directory"
+            errorMessage(programName, &"\"{getCurrentDir()}\" No such file or directory", exit = false)
     else:
         for path in paths:
             try:    
-                echo listDir(long, all, p, color, path)
+                print(listDir(long, all, p, color, path))
             except OSError:
-                echo &"ls: \"{path}\" No such file or directory"
+                errorMessage(programName, &"\"{path}\" No such file or directory", exit = false)
 
 when isMainModule:
-    dispatch(runLs, cmdName = "ls", help = {"help": "Display this help page.", "version": "Show version info.", "long": "Show each entry in a new line.", "all": "Show hidden files as well.", "p": "Append \"/\" to directories.", "color": "Colorize the output"}, 
+    dispatch(runLs, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "long": "Show each entry in a new line.", "all": "Show hidden files as well.", "p": "Append \"/\" to directories.", "color": "Colorize the output"}, 
             short = {"version": 'v', "long": 'l', "all": 'a', "color": 'c'})

@@ -1,5 +1,7 @@
 import cligen, std/os, ../../common/constants
 
+const programName* = "nproc"
+
 proc runNproc*(ignore: int = 0) =
     const cpuDir = "/sys/devices/system/cpu/cpu"
     var count = 0
@@ -10,5 +12,5 @@ proc runNproc*(ignore: int = 0) =
     echo $(if count - ignore >= 1: count - ignore else: count)
 
 when isMainModule:
-    dispatch(runNproc, cmdName = "nproc", help = {"help": "Display this help page.", "version": "Show version info.", "ignore": "Exclude \"n\" processing units."}, 
+    dispatch(runNproc, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "ignore": "Exclude \"n\" processing units."}, 
             short = {"version": 'v', "ignore": 'i'})

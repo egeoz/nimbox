@@ -1,4 +1,6 @@
-import cligen, std/os, strformat, strutils, ../../common/constants
+import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+
+const programName* = "rm"
 
 proc runRm*(files: seq[string], recursive: bool = false, verbose: bool = false) =
     var action: bool
@@ -17,27 +19,27 @@ proc runRm*(files: seq[string], recursive: bool = false, verbose: bool = false) 
                     removeDir(path)
 
                 if recursive and action and verbose: 
-                    echo &"Removed file or directory: \"{fileName}\""
+                    errorMessage(programName, &"Removed file or directory: \"{fileName}\".")
 
             except IOError:
-                echo "Failed to remove: Permission denied."
+                errorMessage(programName, &"Failed to remove \"{fileName}\": Permission denied.")
             except:
-                echo "Unknown error"
+                errorMessage(programName, "Unknown error.")
 
         else:
             try:
                 if dirExists(path): 
-                    echo &"Cannot remove \"{fileName}\": Is a directory."
+                    errorMessage(programName, &"Cannot remove \"{fileName}\": Is a directory.")
                 else:
                     removeFile(path)
                     if recursive and action and verbose: 
                         echo &"Removed file or directory: \"{fileName}\""
 
             except IOError:
-                echo "Failed to remove: Permission denied."
+                errorMessage(programName, &"Failed to remove \"{fileName}\": Permission denied.")
             except:
-                echo "Unknown error."
+                errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runRm, cmdName = "rm", help = {"help": "Display this help page.", "version": "Show version info.", "recursive": "Remove files and directories recursively.", "verbose": "Explain what is being done."}, 
+    dispatch(runRm, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "recursive": "Remove files and directories recursively.", "verbose": "Explain what is being done."}, 
                 short = {"verbose": 'v', "recursive": 'r'})

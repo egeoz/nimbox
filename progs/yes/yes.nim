@@ -1,12 +1,14 @@
 import cligen, ../../common/constants
 
+const programName* = "yes"
+
 proc runYes*(strings: seq[string]) =
     while true:
         if strings.len == 0:
-            stdout.writeLine("y")
+            echo "y"
         else:
-            stdout.writeLine(join(strings," "))
+            echo join(strings," ")
 
 when isMainModule:
-    dispatch(runYes, cmdName = "yes", help = {"help": "Display this help page.", "version": "Show version info."}, 
+    dispatch(runYes, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
                 short = {"version": 'v'})

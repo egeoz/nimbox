@@ -10,3 +10,14 @@ proc humanBytes*(bytes: int | BiggestInt, suffix: string = "B"): string =
         fbytes = fbytes / 1024
 
     return $bytes
+
+proc errorMessage*(programName, errorString: string, exit: bool = false) =
+    echo &"{programName}: {errorString}"
+    if exit: quit(1)
+
+template print*(s: varargs[string, `$`]) =
+    for x in s:
+        stdout.write(x)
+
+    stdout.flushFile()
+

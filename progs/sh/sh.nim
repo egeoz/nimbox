@@ -1,12 +1,14 @@
-import cligen, posix_utils, std/[os, osproc, streams, terminal], strformat, strutils, ../../common/constants
+import cligen, posix_utils, std/[os, osproc, streams, terminal], strformat, strutils, ../../common/constants, ../../common/utils
 
+const programName* = "sh"
 const builtin = ["cd", "exit"]
 
 proc builtinCd(path: string) =
     try:
         setCurrentDir(absolutePath(path))
     except OSError:
-        stdout.styledWrite(fgRed, "No such file or directory: {path}")
+        stdout.styledWrite(fgRed, &"No such file or directory: {path}.")
+        stdout.flushFile()
 
 proc builtinExit() =
     quit(0)
@@ -20,7 +22,10 @@ proc runSh*(args: seq[string]) =
 
         while true:
             stdout.styledWrite(fgGreen, getEnv("USER"), fgBlue, "@", fgGreen, un.nodename, fgBlue, " => " & getCurrentDir() & " $ ")
+            stdout.flushFile()
             input = readLine(stdin)
+
+            if input == "": continue
 
             let args = split(input)
             if args[0] in builtin:
@@ -32,22 +37,24 @@ proc runSh*(args: seq[string]) =
                     else:
                         discard
             else:
-                let p = startProcess(args[0], args=args[1..args.high], options={poStdErrToStdOut, poUsePath})
-                let sout = outputStream(p)
-                let serr = errorStream(p)
+                try:
+                    let p = startProcess(args[0], args = args[1..args.high], options = {poStdErrToStdOut, poUsePath})
+                    let sout = outputStream(p)
+                    let serr = errorStream(p)
 
-                if not isNil(sout):
-                    while sout.readLine(line):
-                        echo line
-                    sout.close()
-                elif not isNil(serr):
-                    while serr.readLine(line):
-                        echo line
-                    serr.close()
+                    if not isNil(sout):
+                        while sout.readLine(line):
+                            echo line
+                        sout.close()
+                    elif not isNil(serr):
+                        while serr.readLine(line):
+                            echo line
+                        serr.close()
 
-                p.close()
-
+                    p.close()
+                except OSError:
+                    errorMessage(programName, &"Command not found: \"{input}\"")
 
 when isMainModule:
-    dispatch(runSh, cmdName = "sh", help = {"help": "Display this help page.", "version": "Show version info."}, 
+    dispatch(runSh, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
             short = {"version": 'v'})

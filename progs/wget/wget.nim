@@ -1,5 +1,7 @@
 import cligen, std/[asyncdispatch, httpclient, terminal, os], strformat, strutils, ../../common/constants, ../../common/utils
 
+const programName* = "wget"
+
 proc onProgressChanged(total, progress, speed: BiggestInt) {.async.} =
     try:
         let w = terminalWidth()
@@ -13,16 +15,16 @@ proc onProgressChanged(total, progress, speed: BiggestInt) {.async.} =
 
         if w >= 20:
             stdout.styledWriteLine(if percentage > 50: fgBlue else: fgRed, &"{percentage:>3}%[", fgWhite, '#'.repeat progressBarLength)
+            stdout.flushFile()
     
-        stdout.writeLine(&"{formattedProgress: >2}\t{formattedSpeed: >2}")
+        echo &"{formattedProgress: >2}\t{formattedSpeed: >2}"
         cursorUp 2
 
     except DivByZeroDefect:
         echo "Downloading..."
         cursorUp 1
     except:
-        echo "Unknown error."
-        quit(1)
+        errorMessage(programName, "Unknown error.", true)
 
 proc download(p, o: string) {.async.} =
     var client: AsyncHttpClient
@@ -40,31 +42,25 @@ proc download(p, o: string) {.async.} =
         writeFile(output, "")
         removeFile(output)
     except IOError:
-        echo "Failed to create file: Permission denied"
-        quit(1)
+        errorMessage(programName, "Failed to create file: Permission denied.")
     except:
-        echo "Unknown error."
-        quit(1)
-    
+        errorMessage(programName, "Unknown error.")
+
     try:       
         client = newAsyncHttpClient()
         client.onProgressChanged = onProgressChanged
         echo &"Downloading \"{p}\" to \"{output}\""
         await client.downloadFile(p, output)
     except OSError:
-        echo &"Unable to resolve host address \"{p}\""
-        quit(1)
+        errorMessage(programName, &"Unable to resolve host address \"{p}\".")
     except IOError:
-        echo "Failed to create file: Permission denied"
-        quit(1)
+        errorMessage(programName, "Failed to create file: Permission denied.")
     except:
-        echo "Unknown error."
-        quit(1)
+        errorMessage(programName, "Unknown error.")
 
 proc runWget*(urls: seq[string], output: string = "") =
     if output != "" and urls.len > 1:
-        echo "wget: Maximum 1 arguments can be given along with -o parameter.\nSee \"output --help\" for more information."
-        quit(1)
+        errorMessage(programName, "wget: Maximum 1 arguments can be given along with -o parameter.\nSee \"output --help\" for more information.", true)
 
     for p in urls:
         var p = p
@@ -72,5 +68,5 @@ proc runWget*(urls: seq[string], output: string = "") =
         waitFor download(p, output)
 
 when isMainModule:
-    dispatch(runWget, cmdName = "wget", help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, 
+    dispatch(runWget, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, 
                     short = {"version": 'v', "output": 'o'})

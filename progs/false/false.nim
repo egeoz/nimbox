@@ -1,3 +1,5 @@
+const programName* = "false"
+
 proc runFalse*() =
     quit(1)
 

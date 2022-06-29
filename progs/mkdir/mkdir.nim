@@ -1,4 +1,6 @@
-import cligen, std/os, strformat, strutils, ../../common/constants
+import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+
+const programName* = "mkdir"
 
 proc runMkdir*(files: seq[string], parents: bool = false, verbose: bool = false) =
     var path: string
@@ -14,9 +16,9 @@ proc runMkdir*(files: seq[string], parents: bool = false, verbose: bool = false)
                     createDir(path)
                     if verbose: echo &"Created directory: \"{fileName}\""
                 except OSError:
-                    echo "Failed to create directory: Permission denied"     
+                    errorMessage(programName, "Failed to create directory: Permission denied")  
                 except:
-                    echo "Unknown error"
+                    errorMessage(programName, "Unknown error.") 
 
             else:
                 if dirExists(head): 
@@ -24,18 +26,18 @@ proc runMkdir*(files: seq[string], parents: bool = false, verbose: bool = false)
                         discard existsOrCreateDir(path) 
                         if verbose: echo &"Created directory: \"{fileName}\""
                     except OSError:
-                        echo "Failed to create directory: Permission denied"
+                        errorMessage(programName, "Failed to create directory: Permission denied") 
                     except:
-                        echo "Unknown error"
+                        errorMessage(programName, "Unknown error.") 
 
                 else: 
-                    echo &"Directory \"{head}\" not found."
+                    errorMessage(programName, &"Directory \"{head}\" not found.") 
 
         else:
-            echo &"File or directory \"{fileName}\" already exists."
+            errorMessage(programName, &"File or directory \"{fileName}\" already exists.")
 
 when isMainModule:
-    dispatch(runMkdir, cmdName = "mkdir", help = {"help": "Display this help page.", "version": "Show version info.", "parents": "Make parent directories as needed.", "verbose": "Explain what is being done."},
+    dispatch(runMkdir, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "parents": "Make parent directories as needed.", "verbose": "Explain what is being done."},
                     short = {"verbose": 'v', "parents": 'p'})
 
 

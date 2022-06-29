@@ -1,4 +1,6 @@
-import cligen, regex, std/os, strformat, ../../common/constants
+import cligen, regex, std/os, strformat, ../../common/constants, ../../common/utils
+
+const programName* = "cat"
 
 proc runCat*(files: seq[string], numbers: bool = false, numbersnonblank: bool = false, squeeze: bool = false) =
     let emptyPattern = re"[^\s ]"
@@ -46,12 +48,12 @@ proc runCat*(files: seq[string], numbers: bool = false, numbersnonblank: bool = 
                         echo line
             except IOError:
                 if dirExists(fileName):
-                    echo &"{fileName}: Is a directory."
+                    errorMessage(programName, &"{fileName}: Is a directory.")
                 else:
-                    echo "No such file or directory."
+                    errorMessage(programName, &"{fileName}: No such file or directory.")
             except:
-                echo "Unknown error."
+                errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runCat, cmdName = "cat", help = {"help": "Display this help page.", "version": "Show version info.", "numbers": "Show line numbers.", "numbersnonblank": "Show non-blank line numbers.", "squeeze": "Supress repeated empty output lines."},
+    dispatch(runCat, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "numbers": "Show line numbers.", "numbersnonblank": "Show non-blank line numbers.", "squeeze": "Supress repeated empty output lines."},
                     short = {"version": 'v', "numbers": 'n', "numbersnonblank": 'b', "squeeze": 's'})

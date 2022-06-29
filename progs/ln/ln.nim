@@ -1,4 +1,6 @@
-import cligen, std/os, strutils, strformat, ../../common/constants
+import cligen, std/os, strutils, strformat, ../../common/constants, ../../common/utils
+
+const programName* = "ln"
 
 proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, interactive: bool = false, verbose: bool = false) =
     var prompt, path, dest: string
@@ -11,8 +13,8 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                 dest = absolutePath(target)
                 path = absolutePath(fileName)
                 action = fileExists(path) or dirExists(path)
-                if not symbolic and dirExists(path): echo "Cannot create hard-links for directories."
-                if not (action): echo &"Cannot link \"{fileName}\": No such file or directory"
+                if not symbolic and dirExists(path): errorMessage(programName, "Cannot create hard-links for directories.")
+                if not (action): errorMessage(programName, &"Cannot link \"{fileName}\": No such file or directory")
 
                 if dirExists(dest) and not dest.endsWith("/"): dest = dest & "/"
                 if path.endsWith("/"): path = path[0 ..< path.high]
@@ -23,7 +25,7 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
 
                 if fileExists(path):
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -38,11 +40,10 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
 
                 elif dirExists(path):
                     if fileExists(dest): 
-                        echo &"Cannot link to non-directory \"{dest}\" with directory \"{fileName}\"."
-                        quit(1)
+                        errorMessage(programName, &"Cannot link to non-directory \"{dest}\" with directory \"{fileName}\".", true)
                     
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -61,7 +62,7 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                 action = fileExists(path) or dirExists(path)
                 
                 if path == dest: quit(1)
-                if not (action): echo &"Cannot link \"{fileName}\": No such file or directory"
+                if not (action): errorMessage(programName, &"Cannot link \"{fileName}\": No such file or directory")
 
                 if dirExists(dest) and not dest.endsWith("/"): dest = dest & "/"
                 if path.endsWith("/"): path = path[0 ..< path.high]
@@ -73,7 +74,7 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                     if not interactive and dirExists(dest): removeDir(dest)
 
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -87,13 +88,12 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
 
                 elif dirExists(path):
                     if fileExists(dest): 
-                        echo &"Cannot link non-directory \"{dest}\" with directory \"{fileName}\"."
-                        quit(1)
+                        errorMessage(programName, &"Cannot link non-directory \"{dest}\" with directory \"{fileName}\".", true)
                     
                     if not interactive and fileExists(dest): removeFile(dest)
                     
                     if interactive and fileExists(dest) or dirExists(dest):
-                        stdout.write("Destination exists, do you want to overwrite? (y/n) ")
+                        print("Destination exists, do you want to overwrite? (y/n) ")
                         prompt = readLine(stdin)
                         
                         if prompt == "y":
@@ -105,10 +105,10 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                         if symbolic: createSymlink(path, dest) else: createHardlink(path, dest)
                     
         except OSError:
-            echo "Failed to create link: Permission denied."
+            errorMessage(programName, "Failed to create link: Permission denied.")
         except:
-            echo "Unknown error."
+            errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runLn, cmdName = "ln", help = {"help": "Display this help page.", "version": "Show version info.", "target": "Specify the target directory.", "symbolic": "Create a symbolic link.", "interactive": "Prompt before overwriting.", "verbose": "Explain what is being done."}, 
+    dispatch(runLn, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "target": "Specify the target directory.", "symbolic": "Create a symbolic link.", "interactive": "Prompt before overwriting.", "verbose": "Explain what is being done."}, 
             short = {"verbose": 'v', "target": 't', "symbolic": 's', "interactive": 'i'})

@@ -1,4 +1,6 @@
-import cligen, std/[asyncdispatch, asynchttpserver, os], strformat, ../../common/constants
+import cligen, std/[asyncdispatch, asynchttpserver, os], strformat, ../../common/constants, ../../common/utils
+
+const programName* = "httpd"
 
 proc serve(contents: string, port: int) {.async.} =
     var server = newAsyncHttpServer()
@@ -21,30 +23,28 @@ proc runHttpd*(files: seq[string], port: int = 0) =
     var contents: string
 
     for fileName in files:
-        if dirExists(fileName): 
-            echo &"{fileName} is a directory."
+        if dirExists(fileName):
+            errorMessage(programName, &"\"{fileName}\" is a directory.")
             continue
         
         try:
             contents = readFile(fileName)
         except IOError:
-            echo "No such file or directory."
+            errorMessage(programName, &"{fileName}: No such file or directory.")
             continue
         except:
-            echo "Unknown error."
+            errorMessage(programName, "Unknown error.")
             continue
 
         try:
             waitFor serve(contents, if port < 0: 0 else: port)
         except OSError:
-            echo &"Unable to bind to port {port}."
-            quit(1)
+            errorMessage(programName, &"Unable to bind port {port}.", true)
         except:
-            echo "Unknown error."
-            quit(1)
+            errorMessage(programName, "Unknown error.", true)
 
 when isMainModule:
-    dispatch(runHttpd, cmdName = "httpd", help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, 
+    dispatch(runHttpd, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, 
             short = {"version": 'v', "port": 'p'})
 
 

@@ -1,4 +1,6 @@
-import cligen, std/[os, terminal], strformat, ../../common/constants
+import cligen, std/[os, terminal], strformat, ../../common/constants, ../../common/utils
+
+const programName* = "more"
 
 proc runMore*(files: seq[string]) =
     let h = terminalHeight()
@@ -18,9 +20,9 @@ proc runMore*(files: seq[string]) =
                 else:
                     setBackgroundColor(BackgroundColor.bgwhite)
                     setForegroundColor(ForegroundColor.fgblack)
-                    stdout.write(&"{loc: >6}  {fileName}")
+                    print(&"{loc: >6}  {fileName}")
                     input = getch()
-                    stdout.write(ansiResetCode)
+                    print(ansiResetCode)
                     stdout.eraseLine()
 
                     if input == 'q':
@@ -33,12 +35,12 @@ proc runMore*(files: seq[string]) =
 
         except IOError:
             if dirExists(fileName):
-                echo &"{fileName}: Is a directory."
+                errorMessage(programName, &"{fileName}: Is a directory.")
             else:
-                echo "No such file or directory."
+                errorMessage(programName, &"{fileName}: No such file or directory.")
         except:
-            echo "Unknown error."
+            errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runMore, cmdName = "more", help = {"help": "Display this help page.", "version": "Show version info."}, 
+    dispatch(runMore, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
                     short = {"version": 'v'})
