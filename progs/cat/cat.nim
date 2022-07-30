@@ -1,17 +1,24 @@
-import cligen, regex, std/os, strformat, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    regex, 
+    std/os, 
+    strformat, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "cat"
 
 proc runCat*(files: seq[string], numbers: bool = false, numbersnonblank: bool = false, squeeze: bool = false) =
     let emptyPattern = re"[^\s ]"
-    var isPreviousLineEmpty: bool
-    var n: int
-    var line: string
+    var 
+        isPreviousLineEmpty: bool
+        n: int
+        line: string
     
     if files.len == 0:
         while true:
             line = readLine(stdin)
-            echo line
+            echo(line)
     else:
         for fileName in files:
             try:
@@ -35,17 +42,18 @@ proc runCat*(files: seq[string], numbers: bool = false, numbersnonblank: bool = 
                             isPreviousLineEmpty = false
 
                     if numbers:
-                        echo &"{n: >6} {line}"
+                        echo(&"{n: >6} {line}")
                         inc n
                     elif numbersnonblank:
                         if emptyPattern in line:
-                            echo &"{n: >6} {line}"
+                            echo(&"{n: >6} {line}")
                             inc n 
                         else:
-                            echo &"{line: >7}"
+                            echo(&"{line: >7}")
 
                     else:
-                        echo line
+                        echo(line)
+
             except IOError:
                 if dirExists(fileName):
                     errorMessage(programName, &"{fileName}: Is a directory.")
@@ -55,5 +63,4 @@ proc runCat*(files: seq[string], numbers: bool = false, numbersnonblank: bool = 
                 errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runCat, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "numbers": "Show line numbers.", "numbersnonblank": "Show non-blank line numbers.", "squeeze": "Supress repeated empty output lines."},
-                    short = {"version": 'v', "numbers": 'n', "numbersnonblank": 'b', "squeeze": 's'})
+    dispatch(runCat, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "numbers": "Show line numbers.", "numbersnonblank": "Show non-blank line numbers.", "squeeze": "Supress repeated empty output lines."}, short = {"version": 'v', "numbers": 'n', "numbersnonblank": 'b', "squeeze": 's'})

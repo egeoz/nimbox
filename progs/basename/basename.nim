@@ -1,4 +1,9 @@
-import cligen, std/os, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "basename"
 
@@ -12,8 +17,7 @@ proc runBasename*(paths: seq[string], suffix: string = "") =
             if tail.endsWith(suffix):
                 tail = tail[0..<(tail.len - suffix.len)]
 
-        echo tail
+        echo(tail)
 
 when isMainModule:
-    dispatch(runBasename, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "suffix": "Remove suffix."}, 
-            short = {"version": 'v', "suffix": 's'})
+    dispatch(runBasename, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "suffix": "Remove suffix."}, short = {"version": 'v', "suffix": 's'})

@@ -1,4 +1,10 @@
-import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strformat, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "ls"
 
@@ -16,7 +22,7 @@ proc listDir(long, all, p, color: bool, path: string): string =
 proc runLs*(paths: seq[string], long: bool = false, all: bool = false, p: bool = false, color: bool = false) =
     if paths.len == 0:
         try:    
-            echo listDir(long, all, p, color, getCurrentDir())
+            echo(listDir(long, all, p, color, getCurrentDir()))
         except OSError:
             errorMessage(programName, &"\"{getCurrentDir()}\" No such file or directory", exit = false)
     else:
@@ -27,5 +33,4 @@ proc runLs*(paths: seq[string], long: bool = false, all: bool = false, p: bool =
                 errorMessage(programName, &"\"{path}\" No such file or directory", exit = false)
 
 when isMainModule:
-    dispatch(runLs, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "long": "Show each entry in a new line.", "all": "Show hidden files as well.", "p": "Append \"/\" to directories.", "color": "Colorize the output"}, 
-            short = {"version": 'v', "long": 'l', "all": 'a', "color": 'c'})
+    dispatch(runLs, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "long": "Show each entry in a new line.", "all": "Show hidden files as well.", "p": "Append \"/\" to directories.", "color": "Colorize the output"}, short = {"version": 'v', "long": 'l', "all": 'a', "color": 'c'})

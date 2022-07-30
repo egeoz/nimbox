@@ -1,10 +1,18 @@
-import cligen, std/os, strutils, strformat, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strutils, 
+    strformat, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "ln"
 
 proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, interactive: bool = false, verbose: bool = false) =
-    var prompt, path, dest: string
-    var action: bool
+    var 
+        prompt, path, dest: string
+        action: bool
+    
     let interactive = false
 
     for fileName in files:
@@ -36,7 +44,7 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                         if dirExists(dest): removeDir(dest)
                         if symbolic: createSymlink(path, dest) else: createHardlink(path, dest)
 
-                    if sameFileContent(path, dest) and verbose: echo &"Linked \"{fileName}\" to \"{dest}\"."
+                    if sameFileContent(path, dest) and verbose: echo(&"Linked \"{fileName}\" to \"{dest}\".")
 
                 elif dirExists(path):
                     if fileExists(dest): 
@@ -54,7 +62,7 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                         if fileExists(dest): removeFile(dest)
                         if symbolic: createSymlink(path, dest) else: createHardlink(path, dest)
 
-                    if sameFileContent(path, dest) and verbose: echo &"Linked \"{fileName}\" to \"{dest}\"."
+                    if sameFileContent(path, dest) and verbose: echo(&"Linked \"{fileName}\" to \"{dest}\".")
 
             else:
                 dest = absolutePath(files[files.len - 1])
@@ -84,7 +92,7 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
                     else:
                         if symbolic: createSymlink(path, dest) else: createHardlink(path, dest)
 
-                    if sameFileContent(path, dest) and verbose: echo &"Linked \"{fileName}\" to \"{dest}\"."
+                    if sameFileContent(path, dest) and verbose: echo(&"Linked \"{fileName}\" to \"{dest}\".")
 
                 elif dirExists(path):
                     if fileExists(dest): 
@@ -110,5 +118,4 @@ proc runLn*(files: seq[string], target: string = "", symbolic: bool = false, int
             errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runLn, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "target": "Specify the target directory.", "symbolic": "Create a symbolic link.", "interactive": "Prompt before overwriting.", "verbose": "Explain what is being done."}, 
-            short = {"verbose": 'v', "target": 't', "symbolic": 's', "interactive": 'i'})
+    dispatch(runLn, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "target": "Specify the target directory.", "symbolic": "Create a symbolic link.", "interactive": "Prompt before overwriting.", "verbose": "Explain what is being done."}, short = {"verbose": 'v', "target": 't', "symbolic": 's', "interactive": 'i'})

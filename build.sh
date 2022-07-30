@@ -5,7 +5,7 @@ FLAGS="c -d:release"
 SFLAGS="-d:ssl"
 STATIC="musl -d:release -d:libressl"
 UNIFIED="nimbox.nim"
-PROGS=( "basename" "cat" "clear" "cp" "dirname" "dos2unix" "echo" "false" "hostname" "httpd" "ln" "ls" "mkdir" "more" "mv" "nproc" "printenv" "pwd" "readlink" "rm" "sh" "sleep" "touch" "true" "tty" "uname" "uptime" "wget" "which" "whoami" "yes" )
+PROGS=( "basename" "cat" "chmod" "clear" "cmp" "cp" "dirname" "dos2unix" "echo" "false" "hostname" "httpd" "ln" "ls" "md5sum" "mkdir" "more" "mv" "nproc" "printenv" "pwd" "readlink" "rm" "seq" "sh" "sha1sum" "sleep" "touch" "true" "tty" "uname" "unzip" "uptime" "wget" "which" "whoami" "yes" )
 
 if [[ $1 = "unified" ]]
 then

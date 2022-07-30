@@ -1,4 +1,10 @@
-import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strformat, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "dos2unix"
 
@@ -29,6 +35,5 @@ proc runDos2Unix*(files: seq[string], dos: bool = false) =
             errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runDos2Unix, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "dos": "Convert Unix line endings to DOS."}, 
-        short = {"version": 'v', "dos": 'd'})
+    dispatch(runDos2Unix, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "dos": "Convert Unix line endings to DOS."}, short = {"version": 'v', "dos": 'd'})
          

@@ -1,7 +1,15 @@
-import cligen, posix_utils, std/[os, osproc, streams, terminal], strformat, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    posix_utils, 
+    std/[os, osproc, streams, terminal], 
+    strformat, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
-const programName* = "sh"
-const builtin = ["cd", "exit"]
+const 
+    programName* = "sh"
+    builtin = ["cd", "exit"]
 
 proc builtinCd(path: string) =
     try:
@@ -38,23 +46,24 @@ proc runSh*(args: seq[string]) =
                         discard
             else:
                 try:
-                    let p = startProcess(args[0], args = args[1..args.high], options = {poStdErrToStdOut, poUsePath})
-                    let sout = outputStream(p)
-                    let serr = errorStream(p)
+                    let 
+                        p = startProcess(args[0], args = args[1..args.high], options = {poStdErrToStdOut, poUsePath})
+                        sout = outputStream(p)
+                        serr = errorStream(p)
 
                     if not isNil(sout):
                         while sout.readLine(line):
-                            echo line
+                            echo(line)
                         sout.close()
                     elif not isNil(serr):
                         while serr.readLine(line):
-                            echo line
+                            echo(line)
                         serr.close()
 
                     p.close()
+
                 except OSError:
                     errorMessage(programName, &"Command not found: \"{input}\"")
 
 when isMainModule:
-    dispatch(runSh, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
-            short = {"version": 'v'})
+    dispatch(runSh, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, short = {"version": 'v'})

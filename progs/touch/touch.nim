@@ -1,4 +1,9 @@
-import cligen, std/[times, os], strformat, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/[times, os], 
+    strformat, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "touch"
 
@@ -33,5 +38,4 @@ proc runTouch*(files: seq[string], modification: bool = false) =
             errorMessage(programName, &"Cannot overwrite non-file \"{fileName}\" with file.")
 
 when isMainModule:
-    dispatch(runTouch, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "modification": "Change only the modification time."}, 
-                    short = {"version": 'v', "modification": 'm'})
+    dispatch(runTouch, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "modification": "Change only the modification time."}, short = {"version": 'v', "modification": 'm'})

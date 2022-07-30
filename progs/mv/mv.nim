@@ -1,10 +1,17 @@
-import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strformat, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "mv"
 
 proc runMv*(files: seq[string], target: string = "", verbose: bool = false, interactive: bool = false, destination: string = "") =
-    var prompt, path, dest: string
-    var action: bool
+    var 
+        prompt, path, dest: string
+        action: bool
     
     for fileName in files:
         try:
@@ -35,7 +42,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                         if dirExists(dest): removeDir(dest)
                         moveFile(path, dest)
 
-                    if (fileExists(path) or dirExists(path)) != action and verbose: echo &"Moved \"{fileName}\" to \"{dest}\"."
+                    if (fileExists(path) or dirExists(path)) != action and verbose: echo(&"Moved \"{fileName}\" to \"{dest}\".")
 
                 elif dirExists(path):
                     if fileExists(dest): 
@@ -53,7 +60,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                         if fileExists(dest): removeFile(dest)
                         moveDir(path, dest)
                     
-                    if (fileExists(path) or dirExists(path)) != action and verbose: echo &"Moved \"{fileName}\" to \"{destination}\"."
+                    if (fileExists(path) or dirExists(path)) != action and verbose: echo(&"Moved \"{fileName}\" to \"{destination}\".")
 
             else:
                 dest = absolutePath(files[files.len - 1])
@@ -83,7 +90,7 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
                     else:
                         moveFile(path, dest)
 
-                    if (fileExists(path) or dirExists(path)) != action and verbose: echo &"Moved \"{fileName}\" to \"{dest}\"."
+                    if (fileExists(path) or dirExists(path)) != action and verbose: echo(&"Moved \"{fileName}\" to \"{dest}\".")
 
                 elif dirExists(path):
                     if fileExists(dest): 
@@ -109,5 +116,4 @@ proc runMv*(files: seq[string], target: string = "", verbose: bool = false, inte
             errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runMv, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.","interactive": "Prompt before overwriting." , "target": "Move all into the specified directory", "verbose": "Explain what is being done."}, 
-                 short = {"verbose": 'v', "interactive": 'i', "target": 't'})
+    dispatch(runMv, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.","interactive": "Prompt before overwriting." , "target": "Move all into the specified directory", "verbose": "Explain what is being done."}, short = {"verbose": 'v', "interactive": 'i', "target": 't'})

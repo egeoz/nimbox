@@ -1,4 +1,8 @@
-import cligen, std/os, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "dirname"
 
@@ -8,9 +12,7 @@ proc runDirname*(paths: seq[string]) =
 
     for p in paths:
         var (head, _) = splitPath(p)
-
-        echo head
+        echo(head)
 
 when isMainModule:
-    dispatch(runDirname, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
-                    short = {"version": 'v'})
+    dispatch(runDirname, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, short = {"version": 'v'})

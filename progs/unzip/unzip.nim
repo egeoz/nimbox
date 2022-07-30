@@ -1,4 +1,10 @@
-import cligen, std/os, strformat, zippy/ziparchives, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strformat, 
+    zippy/ziparchives, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "unzip"
 
@@ -13,7 +19,7 @@ proc runUnzip*(files: seq[string], destination: string = "", list: bool = false,
                 let archive = openZipArchive(fileName)
                 try:
                     for f in archive.walkFiles:
-                        echo f
+                        echo(f)
                 finally:
                     archive.close()
 
@@ -23,10 +29,10 @@ proc runUnzip*(files: seq[string], destination: string = "", list: bool = false,
         except IOError:
             if fileExists(fileName): errorMessage(programName, &"Cannot write to {fileName}: Permission denied.")
             else: errorMessage(programName, &"{fileName}: No such file or directory.")
+
         except:
             errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runUnzip, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "destination": "Extract into destination.", "list": "List contents without extracting.", "neveroverwrite": "Never overwrite files."}, 
-        short = {"version": 'v', "destination": 'd', "list": 'l', "neveroverwrite": 'n'})
+    dispatch(runUnzip, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "destination": "Extract into destination.", "list": "List contents without extracting.", "neveroverwrite": "Never overwrite files."}, short = {"version": 'v', "destination": 'd', "list": 'l', "neveroverwrite": 'n'})
          

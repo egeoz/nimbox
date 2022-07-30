@@ -1,17 +1,22 @@
-import cligen, std/[asyncdispatch, asynchttpserver, os], strformat, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/[asyncdispatch, asynchttpserver, os], 
+    strformat, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "httpd"
 
 proc serve(contents: string, port: int) {.async.} =
     var server = newAsyncHttpServer()
     proc cb(req: Request) {.async.} =
-        echo (req.reqMethod, req.url, req.headers)
+        echo(req.reqMethod, req.url, req.headers)
         let headers = {"Content-type": "text/html; charset=utf-8"}
         await req.respond(Http200, contents, headers.newHttpHeaders())
 
     server.listen(Port(port)) 
     let p = server.getPort
-    echo &"You can access the served content at http://localhost:{p.uint16}/"
+    echo(&"You can access the served content at http://localhost:{p.uint16}/")
 
     while true:
         if server.shouldAcceptRequest():
@@ -44,7 +49,6 @@ proc runHttpd*(files: seq[string], port: int = 0) =
             errorMessage(programName, "Unknown error.", true)
 
 when isMainModule:
-    dispatch(runHttpd, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, 
-            short = {"version": 'v', "port": 'p'})
+    dispatch(runHttpd, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "port": "Define a custom port (by default it is randomly selected)."}, short = {"version": 'v', "port": 'p'})
 
 

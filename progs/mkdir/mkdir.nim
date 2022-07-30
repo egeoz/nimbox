@@ -1,4 +1,10 @@
-import cligen, std/os, strformat, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/os, 
+    strformat, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "mkdir"
 
@@ -14,7 +20,7 @@ proc runMkdir*(files: seq[string], parents: bool = false, verbose: bool = false)
             if parents:
                 try:
                     createDir(path)
-                    if verbose: echo &"Created directory: \"{fileName}\""
+                    if verbose: echo(&"Created directory: \"{fileName}\"")
                 except OSError:
                     errorMessage(programName, "Failed to create directory: Permission denied")  
                 except:
@@ -24,7 +30,7 @@ proc runMkdir*(files: seq[string], parents: bool = false, verbose: bool = false)
                 if dirExists(head): 
                     try:
                         discard existsOrCreateDir(path) 
-                        if verbose: echo &"Created directory: \"{fileName}\""
+                        if verbose: echo(&"Created directory: \"{fileName}\"")
                     except OSError:
                         errorMessage(programName, "Failed to create directory: Permission denied") 
                     except:
@@ -37,7 +43,6 @@ proc runMkdir*(files: seq[string], parents: bool = false, verbose: bool = false)
             errorMessage(programName, &"File or directory \"{fileName}\" already exists.")
 
 when isMainModule:
-    dispatch(runMkdir, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "parents": "Make parent directories as needed.", "verbose": "Explain what is being done."},
-                    short = {"verbose": 'v', "parents": 'p'})
+    dispatch(runMkdir, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "parents": "Make parent directories as needed.", "verbose": "Explain what is being done."}, short = {"verbose": 'v', "parents": 'p'})
 
 

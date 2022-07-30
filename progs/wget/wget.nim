@@ -1,34 +1,42 @@
-import cligen, std/[asyncdispatch, httpclient, terminal, os], strformat, strutils, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/[asyncdispatch, httpclient, terminal, os], 
+    strformat, 
+    strutils, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "wget"
 
 proc onProgressChanged(total, progress, speed: BiggestInt) {.async.} =
     try:
-        let w = terminalWidth()
-        let percentage = 100 * progress div total
-        let maxProgressBarLength = w - 10
-        let progressBarLength = maxProgressBarLength * percentage div 100
-        var formattedProgress, formattedSpeed: string
+        let
+            w = terminalWidth()
+            percentage = 100 * progress div total
+            maxProgressBarLength = w - 10
+            progressBarLength = maxProgressBarLength * percentage div 100
 
-        formattedProgress = &"""{humanBytes(progress): >10}"""
-        formattedSpeed = &"""{humanBytes(speed, "B/s"): >10}"""
+        var
+            formattedProgress = &"""{humanBytes(progress): >10}"""
+            formattedSpeed = &"""{humanBytes(speed, "B/s"): >10}"""
 
         if w >= 20:
             stdout.styledWriteLine(if percentage > 50: fgBlue else: fgRed, &"{percentage:>3}%[", fgWhite, '#'.repeat progressBarLength)
             stdout.flushFile()
     
-        echo &"{formattedProgress: >2}\t{formattedSpeed: >2}"
+        echo(&"{formattedProgress: >2}\t{formattedSpeed: >2}")
         cursorUp 2
 
     except DivByZeroDefect:
-        echo "Downloading..."
+        echo("Downloading...")
         cursorUp 1
     except:
         errorMessage(programName, "Unknown error.", true)
 
 proc download(p, o: string) {.async.} =
-    var client: AsyncHttpClient
-    var output: string
+    var 
+        client: AsyncHttpClient
+        output: string
 
     try:
         let (_, tail) = splitPath(p)
@@ -41,6 +49,7 @@ proc download(p, o: string) {.async.} =
 
         writeFile(output, "")
         removeFile(output)
+
     except IOError:
         errorMessage(programName, "Failed to create file: Permission denied.")
     except:
@@ -49,8 +58,9 @@ proc download(p, o: string) {.async.} =
     try:       
         client = newAsyncHttpClient()
         client.onProgressChanged = onProgressChanged
-        echo &"Downloading \"{p}\" to \"{output}\""
+        echo(&"Downloading \"{p}\" to \"{output}\"")
         await client.downloadFile(p, output)
+
     except OSError:
         errorMessage(programName, &"Unable to resolve host address \"{p}\".")
     except IOError:
@@ -68,5 +78,4 @@ proc runWget*(urls: seq[string], output: string = "") =
         waitFor download(p, output)
 
 when isMainModule:
-    dispatch(runWget, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, 
-                    short = {"version": 'v', "output": 'o'})
+    dispatch(runWget, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info.", "output": "Specify output filename."}, short = {"version": 'v', "output": 'o'})

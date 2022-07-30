@@ -1,11 +1,17 @@
-import cligen, std/[os, terminal], strformat, ../../common/constants, ../../common/utils
+import 
+    cligen, 
+    std/[os, terminal], 
+    strformat, 
+    ../../common/constants, 
+    ../../common/utils
 
 const programName* = "more"
 
 proc runMore*(files: seq[string]) =
     let h = terminalHeight()
-    var loc = 0 
-    var input: char
+    var 
+        loc = 0 
+        input: char
 
     for fileName in files:
         try:
@@ -16,7 +22,7 @@ proc runMore*(files: seq[string]) =
 
             while not f.endOfFile():
                 if loc < (h - 1):
-                    echo f.readLine()
+                    echo(f.readLine())
                 else:
                     setBackgroundColor(BackgroundColor.bgwhite)
                     setForegroundColor(ForegroundColor.fgblack)
@@ -28,7 +34,7 @@ proc runMore*(files: seq[string]) =
                     if input == 'q':
                         break
                     else:
-                        echo f.readLine()
+                        echo(f.readLine())
                 
                 inc loc
 
@@ -42,5 +48,4 @@ proc runMore*(files: seq[string]) =
             errorMessage(programName, "Unknown error.")
 
 when isMainModule:
-    dispatch(runMore, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, 
-                    short = {"version": 'v'})
+    dispatch(runMore, cmdName = programName, help = {"help": "Display this help page.", "version": "Show version info."}, short = {"version": 'v'})
